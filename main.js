@@ -220,11 +220,14 @@ function gameOver() {
   const isInTop7 =
     highScores[difficultyKey].length < 7 ||
     score >= highScores[difficultyKey][highScores[difficultyKey].length - 1];
+  const scoreExists = highScores[difficultyKey].includes(score);
 
   if (isInTop7) {
-    highScores[difficultyKey].push(score);
-    highScores[difficultyKey].sort((a, b) => b - a);
-    highScores[difficultyKey] = highScores[difficultyKey].slice(0, 7);
+    if (!scoreExists) {
+      highScores[difficultyKey].push(score);
+      highScores[difficultyKey].sort((a, b) => b - a);
+      highScores[difficultyKey] = highScores[difficultyKey].slice(0, 7);
+    }
     highScoreSound.play();
   } else {
     gameOverSound.play();
