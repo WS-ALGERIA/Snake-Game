@@ -1,0 +1,308 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  height: 100vh;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+}
+.game-content {
+  position: relative;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#highScores {
+  position: absolute;
+  margin-top: 158px;
+  margin-right: 790px;
+  padding: 15px;
+  background-color: rgba(76, 175, 80, 0.15);
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.1);
+  height: fit-content;
+  width: 200px;
+}
+#startBtn {
+  font-size: 20px;
+  outline: none;
+}
+#difficulty {
+  font-size: 20px;
+  padding: 5px;
+}
+#gameContainer {
+  position: relative;
+}
+#gameCanvas {
+  border: 3px solid #4caf50;
+  background-color: #000;
+  margin: 10px;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+  width: 430px;
+  height: 430px;
+}
+#score {
+  font-size: 50px;
+  color: #4caf50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+#controls {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+#gameOver {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 100;
+  cursor: default;
+}
+#highScores h3 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+  color: #4caf50;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+#scoresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+}
+#scoresList li {
+  padding: 8px 12px;
+  margin: 6px 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+@keyframes newScoreAnimation {
+  0% {
+    transform: translateX(100vw) scale(0.8);
+    opacity: 0;
+    background-color: rgba(76, 175, 80, 0.4);
+  }
+  50% {
+    transform: translateX(0) scale(1.1);
+    opacity: 1;
+    background-color: rgba(76, 175, 80, 0.6);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes moveDownAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.new-score {
+  animation: newScoreAnimation 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  z-index: 10;
+}
+
+.move-down {
+  animation: moveDownAnimation 0.5s ease-out;
+}
+
+#scoresList li:hover {
+  background-color: rgba(76, 175, 80, 0.2);
+  transform: translateX(5px);
+}
+.difficulty {
+  margin: 5px 0;
+}
+select {
+  padding: 4px;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  border: 2px solid #4caf50;
+  border-radius: 5px;
+}
+h3 {
+  margin: 5px 0;
+  font-size: 16px;
+}
+#gameOver button {
+  cursor: pointer;
+}
+#resetScoresBtn {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 8px 25px;
+  background-color: #ff1414;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+#resetScoresBtn:hover {
+  background-color: #cc0000;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  padding: 25px;
+  border-radius: 10px;
+  border: 2px solid #4caf50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal h3 {
+  color: #4caf50;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.modal p {
+  color: #fff;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.warning-text {
+  color: #ff9800 !important;
+  font-weight: bold;
+  font-size: 16px !important;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.danger-btn {
+  background-color: #ff1414;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.danger-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+.cancel-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+@keyframes duplicateScoreAnimation {
+  0% {
+    transform: translateX(100vw) scale(0.8);
+    opacity: 0;
+    background-color: rgba(255, 20, 20, 0.4);
+  }
+  50% {
+    transform: translateX(0) scale(1.1);
+    opacity: 1;
+    background-color: rgba(255, 20, 20, 0.6);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.duplicate-score {
+  animation: duplicateScoreAnimation 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  z-index: 10;
+}

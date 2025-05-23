@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="main.js"></script>
+    <title>Snake Game</title>
+  </head>
+  <body>
+    <div class="game-content">
+      <div id="score">Score: 0</div>
+      <div id="controls">
+        <button id="startBtn">New Game</button>
+        <div class="difficulty">
+          <select id="difficulty">
+            <option value="200">Easy</option>
+            <option value="100" selected>Medium</option>
+            <option value="50">Hard</option>
+          </select>
+        </div>
+      </div>
+      <div id="gameContainer">
+        <canvas id="gameCanvas" width="430" height="430"></canvas>
+        <div id="gameOver">
+          <h2>Game Over!</h2>
+          <p id="finalScore">Final Score: 0</p>
+          <button id="restartBtn">Play Again</button>
+        </div>
+      </div>
+      <div id="highScores">
+        <h3>High Scores</h3>
+        <ol id="scoresList"></ol>
+        <button id="resetScoresBtn">Reset High Scores</button>
+      </div>
+    </div>
+
+    <div id="resetWarning" class="modal">
+      <div class="modal-content">
+        <h3>Reset High Scores</h3>
+        <p>Are you sure you want to reset all high scores?</p>
+        <p class="warning-text">This action cannot be undone!</p>
+        <div class="modal-buttons">
+          <button id="confirmReset" class="danger-btn">
+            Yes, Reset Scores
+          </button>
+          <button id="cancelReset" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
