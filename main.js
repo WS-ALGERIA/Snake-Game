@@ -28,9 +28,11 @@ let highScores = {
   hard: JSON.parse(localStorage.getItem("snakeHighScoresHard")) || [],
 };
 
-const eatSound = new Audio("sounds/zaki-go3ra.mp3");
+const eatSound = new Audio("sounds/amin.mp3");
 const gameOverSound = new Audio("sounds/hawik.mp3");
+gameOverSound.volume = 0.2;
 const highScoreSound = new Audio("sounds/fakhr.mp3");
+highScoreSound.volume = 0.4;
 
 function stopAllSounds() {
   eatSound.pause();
