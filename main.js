@@ -28,15 +28,21 @@ let highScores = {
   hard: JSON.parse(localStorage.getItem("snakeHighScoresHard")) || [],
 };
 
-const eatSound = new Audio("sounds/amin.mp3");
+const eatSounds = [
+  new Audio("sounds/Eat-Voice/pekka.mp3"),
+  new Audio("sounds/Eat-Voice/mega.mp3"),
+  new Audio("sounds/Eat-Voice/hog.mp3"),
+];
 const gameOverSound = new Audio("sounds/hawik.mp3");
 gameOverSound.volume = 0.2;
 const highScoreSound = new Audio("sounds/fakhr.mp3");
 highScoreSound.volume = 0.4;
 
 function stopAllSounds() {
-  eatSound.pause();
-  eatSound.currentTime = 0;
+  eatSounds.forEach((sound) => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
   gameOverSound.pause();
   gameOverSound.currentTime = 0;
   highScoreSound.pause();
@@ -119,7 +125,8 @@ function drawGame() {
     score += 10;
     scoreElement.textContent = `Score: ${score}`;
     stopAllSounds();
-    eatSound.play();
+    const randomSound = eatSounds[Math.floor(Math.random() * eatSounds.length)];
+    randomSound.play();
     generateFood();
   } else {
     snake.pop();
